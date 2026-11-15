@@ -120,7 +120,7 @@ typedef struct {
  * moved until the user puts it there (the drive root, "", is still a choice). */
 #define DEFAULT_SCAN_PATH "PS4Mount"
 
-static config_t g_cfg = {1, 5, 1, {DEFAULT_SCAN_PATH}, 1, 5, 1, 1, -1, 0, NAS_NFS, 0, "", "", "", "", "", 1, 1, 1};
+static config_t g_cfg = {1, 5, 1, {DEFAULT_SCAN_PATH}, 1, 5, 1, 1, -1, 0, NAS_NFS, 0, "", "", "", "", "", 1, 1, 0};
 #define NAS_RESCAN_MAX 1440 /* minutes: once a day */
 static int g_setup; /* a first start: no game is added until the settings are saved (first_start) */
 /* A first start with nobody at the panel for this long goes on with the default settings:
@@ -2611,7 +2611,7 @@ static int adopt_dir_pass(const char *root, const char *dir, int pass) {
                       "%s está hecho para el firmware %s (esta consola tiene %s): solo funciona con un backport"),
                    e->d_name, need, have);
         }
-        int is_app = cat && pkg_cat_is_game(cat->sval), is_patch = cat && !strcmp(cat->sval, "gp");
+        int is_app = cat && !strcmp(cat->sval, "gd"), is_patch = cat && !strcmp(cat->sval, "gp");
         int is_dlc = cat && !strcmp(cat->sval, "ac");
         if (is_dlc || pass == 1) {
             /* add-ons go in the second pass: their game may be in this folder too */
@@ -4772,7 +4772,7 @@ static void config_load(void) {
         return;
     config_t c = g_cfg;
     c.npaths = 0;
-    c.klog = 1; /* unless the settings say otherwise (a console that never had the key) */
+    c.klog = 0; /* unless the settings say otherwise (a console that never had the key) */
     char line[768], why[160], path[128];
     int ver = 0;
     while (fgets(line, sizeof(line), f)) {
