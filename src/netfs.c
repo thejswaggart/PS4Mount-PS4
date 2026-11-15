@@ -32,8 +32,10 @@
 
 #define STATE_DIR "/data/ps4mount"
 /* Inside the USB drive, not under /data or /mnt: the system installer only reads a pkg
- * from a storage it has mounted (the same reason USB drives work there). */
-#define NAS_PARENT "/mnt/usb0/ps4mount"
+ * from a storage it has mounted (the same reason USB drives work there). Not applicable
+ * in an SMB-mount-only setup: with no USB drive, /mnt/usb0/ps4mount cannot be created,
+ * so the SMB share cannot be mounted and NAS_PARENT sits under /mnt itself. */
+#define NAS_PARENT "/mnt/ps4mount"
 #define NAS_TRIES 8
 
 /* Offsets of the fusefs patch, per firmware: itemzflow's (LightningMods/Itemzflow,
